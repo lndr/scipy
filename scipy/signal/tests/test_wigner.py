@@ -22,23 +22,3 @@ class TestWigner:
         max_idx = np.unravel_index(np.argmax(wv), wv.shape)
         assert np.allclose(fc, f[max_idx[0]], atol=f[1] - f[0])
         assert np.allclose(tc, t[max_idx[1]], atol=t[1] - t[0])
-
-
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy import signal
-
-# parameter
-f_s = 100
-t = np.arange(0, 1024) / 100
-x = np.sin(2*np.pi*1*t) + np.sin(2*np.pi*5*t)
-
-# Wigner-Ville-Distribution
-t, f, wv = signal.wvd(signal.hilbert(x), f_s)
-
-plt.figure()
-plt.pcolormesh(t, f, wv, shading='nearest')
-plt.xlabel('Time $t$ / s')
-plt.ylabel('Frequency $f$ / Hz')
-plt.ylim([0, 6])
-plt.show()
