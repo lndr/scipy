@@ -1,4 +1,4 @@
-"""Tools based on the Wigner quasiprobability distribution.
+"""Tools based on the Wigner quasiprobability distributions.
 """
 
 import numpy as np
@@ -32,16 +32,30 @@ def wvd(x, fs=1.0, resolution=1, win_size=None):
     wv : ndarray
         Wigner-Ville distribution of `x`.
 
+    References
+    ----------
+    .. [1] S. Mallat, "A Wavelet Tour of Signal Processing (3rd Edition)",
+        Academic Press, 2009.
+
     Examples
     --------
     >>> import matplotlib.pyplot as plt
     >>> import numpy as np
     >>> from scipy import signal
 
+    Generate a test signal with two superimposed sine wave at 1 Hz and 5 Hz.
+
     >>> f_s = 100
     >>> t = np.arange(0, 1024) / 100
     >>> x = np.sin(2*np.pi*1*t) + np.sin(2*np.pi*5*t)
+
+    Compute the Wigner-Ville distribution. Note that the analystic signal is
+    supplied to the function.
+
     >>> t, f, wv = signal.wvd(signal.hilbert(x), f_s)
+
+    Plot the Wigner-Ville distribution with expected cross-terms clearly
+    visible at 3 Hz.
 
     >>> plt.figure()
     >>> plt.pcolormesh(t, f, wv, shading='nearest')
